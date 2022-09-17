@@ -16,13 +16,7 @@ public class DatabaseAccessCode {
     // load doctors
     public ArrayList<Doctor> searchDoctors(String text) throws ClassNotFoundException, SQLException {
         String searchText="%"+text+"%";
-        PreparedStatement stm =
-                DBConnection.getInstance().getConnection().prepareStatement
-                        ("SELECT * FROM doctor WHERE address LiKE ? || name LIKE ? || contact liKE ?");
-        stm.setString(1,searchText);
-        stm.setString(2,searchText);
-        stm.setString(3,searchText);
-       ResultSet set = stm.executeQuery();
+       ResultSet set = CrudUtil.execute("SELECT * FROM doctor WHERE address LiKE ? || name LIKE ? || contact liKE ?",searchText,searchText,searchText);
        ArrayList<Doctor> lst = new ArrayList<>();
        while (set.next()){
            lst.add(new Doctor(
@@ -37,21 +31,13 @@ public class DatabaseAccessCode {
 
     // delete Doctor
     public boolean deleteDoctor(String id) throws ClassNotFoundException, SQLException {
-        PreparedStatement stm =
-                DBConnection.getInstance().getConnection().prepareStatement("DELETE FROM doctor WHERE dId=?");
-        stm.setString(1,id);
-        return stm.executeUpdate()>0;
+        return CrudUtil.execute("DELETE FROM doctor WHERE dId=?", id);
     }
 
     // update Doctor
     public boolean updateDoctor(Doctor doc) throws ClassNotFoundException, SQLException {
-        PreparedStatement stm =
-                DBConnection.getInstance().getConnection().prepareStatement("UPDATE doctor SET name=?, address=?, contact=? WHERE dId=?");
-        stm.setString(1,doc.getName());
-        stm.setString(2,doc.getAddress());
-        stm.setString(3,doc.getContact());
-        stm.setString(4,doc.getDid());
-        return stm.executeUpdate()>0;
+        return CrudUtil.execute("UPDATE doctor SET name=?, address=?, contact=? WHERE dId=?",
+                doc.getName(),doc.getAddress(),doc.getContact(),doc.getDid());
     }
 
 }
