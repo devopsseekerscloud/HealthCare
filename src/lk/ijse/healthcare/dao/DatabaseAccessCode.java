@@ -51,4 +51,18 @@ public class DatabaseAccessCode {
         return stm.executeUpdate()>0;
     }
 
+    // update Doctor
+    public boolean updateDoctor(Doctor doc) throws ClassNotFoundException, SQLException {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection connection = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/HealthCare","root","1234");
+        PreparedStatement stm =
+                connection.prepareStatement("UPDATE doctor SET name=?, address=?, contact=? WHERE dId=?");
+        stm.setString(1,doc.getName());
+        stm.setString(2,doc.getAddress());
+        stm.setString(3,doc.getContact());
+        stm.setString(4,doc.getDid());
+        return stm.executeUpdate()>0;
+    }
+
 }
