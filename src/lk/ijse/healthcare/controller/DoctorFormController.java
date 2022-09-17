@@ -11,6 +11,7 @@ import lk.ijse.healthcare.view.tm.DoctorTm;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class DoctorFormController {
     public TextField txtName;
@@ -42,6 +43,27 @@ public class DoctorFormController {
                  ) {
                 Button btn= new Button("Delete");
                 tmList.add(new DoctorTm(d.getDid(),d.getName(),d.getAddress(),d.getContact(),btn));
+
+
+                btn.setOnAction(event -> {
+                    Alert alert= new Alert(Alert.AlertType.CONFIRMATION, "are you sure?",
+                            ButtonType.YES,ButtonType.NO);
+                    Optional<ButtonType> buttonType = alert.showAndWait();
+                    if (buttonType.get()==ButtonType.YES){
+                        try {
+                            if (new DatabaseAccessCode().deleteDoctor(d.getDid())){
+                                searchData();
+                                new Alert(Alert.AlertType.CONFIRMATION, "Deleted!").show();
+                            }else{
+                                new Alert(Alert.AlertType.WARNING, "Try Again!").show();
+                            }
+                        } catch (ClassNotFoundException | SQLException e) {
+
+                            throw new RuntimeException(e);
+                        }
+                    }
+                });
+
             }
             tblDoctors.setItems(tmList);
 
@@ -60,6 +82,7 @@ public class DoctorFormController {
 
             boolean isSaved = new DatabaseAccessCode().saveDoctor(d1);
             if (isSaved){
+                searchData();
                 new Alert(Alert.AlertType.CONFIRMATION, "Saved!").show();
             }else{
                 new Alert(Alert.AlertType.WARNING, "Try Again!").show();
