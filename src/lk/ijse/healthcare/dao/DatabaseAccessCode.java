@@ -39,4 +39,16 @@ public class DatabaseAccessCode {
        }
        return lst;
     }
+
+    // delete Doctor
+    public boolean deleteDoctor(String id) throws ClassNotFoundException, SQLException {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection connection = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/HealthCare","root","1234");
+        PreparedStatement stm =
+                connection.prepareStatement("DELETE FROM doctor WHERE dId=?");
+        stm.setString(1,id);
+        return stm.executeUpdate()>0;
+    }
+
 }
