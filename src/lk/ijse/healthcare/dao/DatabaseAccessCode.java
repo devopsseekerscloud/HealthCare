@@ -1,5 +1,6 @@
 package lk.ijse.healthcare.dao;
 
+import lk.ijse.healthcare.db.DBConnection;
 import lk.ijse.healthcare.entity.Doctor;
 
 import java.sql.*;
@@ -8,9 +9,8 @@ import java.util.ArrayList;
 public class DatabaseAccessCode {
     // save Doctor
     public boolean saveDoctor(Doctor doc) throws ClassNotFoundException, SQLException {
-
         PreparedStatement stm =
-                connection.prepareStatement("INSERT INTO Doctor VALUES (?,?,?,?)");
+                DBConnection.getInstance().getConnection().prepareStatement("INSERT INTO Doctor VALUES (?,?,?,?)");
         stm.setString(1,doc.getDid());
         stm.setString(2,doc.getName());
         stm.setString(3,doc.getAddress());
@@ -21,11 +21,8 @@ public class DatabaseAccessCode {
     // load doctors
     public ArrayList<Doctor> searchDoctors(String text) throws ClassNotFoundException, SQLException {
         String searchText="%"+text+"%";
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection connection = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/HealthCare","root","1234");
         PreparedStatement stm =
-                connection.prepareStatement
+                DBConnection.getInstance().getConnection().prepareStatement
                         ("SELECT * FROM doctor WHERE address LiKE ? || name LIKE ? || contact liKE ?");
         stm.setString(1,searchText);
         stm.setString(2,searchText);
@@ -45,22 +42,16 @@ public class DatabaseAccessCode {
 
     // delete Doctor
     public boolean deleteDoctor(String id) throws ClassNotFoundException, SQLException {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection connection = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/HealthCare","root","1234");
         PreparedStatement stm =
-                connection.prepareStatement("DELETE FROM doctor WHERE dId=?");
+                DBConnection.getInstance().getConnection().prepareStatement("DELETE FROM doctor WHERE dId=?");
         stm.setString(1,id);
         return stm.executeUpdate()>0;
     }
 
     // update Doctor
     public boolean updateDoctor(Doctor doc) throws ClassNotFoundException, SQLException {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection connection = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/HealthCare","root","1234");
         PreparedStatement stm =
-                connection.prepareStatement("UPDATE doctor SET name=?, address=?, contact=? WHERE dId=?");
+                DBConnection.getInstance().getConnection().prepareStatement("UPDATE doctor SET name=?, address=?, contact=? WHERE dId=?");
         stm.setString(1,doc.getName());
         stm.setString(2,doc.getAddress());
         stm.setString(3,doc.getContact());
