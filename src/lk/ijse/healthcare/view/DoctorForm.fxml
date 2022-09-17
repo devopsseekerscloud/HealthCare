@@ -63,7 +63,7 @@
           <TableColumn fx:id="colName" prefWidth="181.0" text="Name" />
             <TableColumn fx:id="colAddress" prefWidth="201.0" text="Address" />
             <TableColumn fx:id="colContact" prefWidth="119.0" text="Contact" />
-            <TableColumn fx:id="coOption" prefWidth="203.0" text="Options" />
+            <TableColumn fx:id="colOption" prefWidth="203.0" text="Options" />
         </columns>
       </TableView>
    </children>

@@ -20,7 +20,7 @@ public class DoctorFormController {
     public TableColumn colName;
     public TableColumn colAddress;
     public TableColumn colContact;
-    public TableColumn coOption;
+    public TableColumn colOption;
 
 
     public void saveDoctorOnAction(ActionEvent actionEvent) {
