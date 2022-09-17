@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="loginPaneContext" prefHeight="284.0" prefWidth="271.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.healthcare.controller.LoginFormController">
+   <children>
+      <Label layoutX="14.0" layoutY="14.0" text="Login">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <JFXTextField labelFloat="true" layoutX="14.0" layoutY="54.0" prefHeight="25.0" prefWidth="236.0" promptText="User name">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </JFXTextField>
+      <JFXPasswordField labelFloat="true" layoutX="14.0" layoutY="103.0" prefHeight="29.0" prefWidth="236.0" promptText="Password">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </JFXPasswordField>
+      <JFXButton buttonType="RAISED" layoutX="14.0" layoutY="153.0" onAction="#openDashboardOnAction" prefHeight="37.0" prefWidth="236.0" style="-fx-background-color: #3498db;" text="Login" textFill="WHITE">
+         <font>
+            <Font size="13.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <Label layoutX="126.0" layoutY="202.0" text="OR" />
+      <Separator layoutX="18.0" layoutY="209.0" prefHeight="0.0" prefWidth="93.0" />
+      <Separator layoutX="157.0" layoutY="210.0" prefHeight="0.0" prefWidth="93.0" />
+      <JFXButton buttonType="RAISED" layoutX="14.0" layoutY="233.0" onAction="#openSignupOnAction" prefHeight="37.0" prefWidth="236.0" style="-fx-background-color: #34495e;" text="Create an Account" textFill="WHITE">
+         <font>
+            <Font size="13.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+   </children>
+</AnchorPane>
