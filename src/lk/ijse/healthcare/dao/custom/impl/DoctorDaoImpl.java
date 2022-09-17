@@ -4,6 +4,7 @@ import lk.ijse.healthcare.dao.CrudUtil;
 import lk.ijse.healthcare.dao.custom.DoctorDao;
 import lk.ijse.healthcare.entity.Doctor;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -35,5 +36,21 @@ public class DoctorDaoImpl implements DoctorDao {
     @Override
     public ArrayList<Doctor> getAllDoctors() {
         return null;
+    }
+
+    @Override
+    public ArrayList<Doctor> searchDoctors(String text) throws SQLException, ClassNotFoundException {
+        String searchText = "%" + text + "%";
+        ResultSet set = CrudUtil.execute("SELECT * FROM doctor WHERE address LiKE ? || name LIKE ? || contact liKE ?", searchText, searchText, searchText);
+        ArrayList<Doctor> lst = new ArrayList<>();
+        while (set.next()) {
+            lst.add(new Doctor(
+                    set.getString(1),
+                    set.getString(2),
+                    set.getString(3),
+                    set.getString(4))
+            );
+        }
+        return lst;
     }
 }
