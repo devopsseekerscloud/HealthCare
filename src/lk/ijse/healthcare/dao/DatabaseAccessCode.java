@@ -12,7 +12,6 @@ public class DatabaseAccessCode {
         return CrudUtil.execute("INSERT INTO Doctor VALUES (?,?,?,?)",
                 doc.getDid(),doc.getName(),doc.getAddress(),doc.getContact());
     }
-
     // load doctors
     public ArrayList<Doctor> searchDoctors(String text) throws ClassNotFoundException, SQLException {
         String searchText="%"+text+"%";
@@ -28,12 +27,10 @@ public class DatabaseAccessCode {
        }
        return lst;
     }
-
     // delete Doctor
     public boolean deleteDoctor(String id) throws ClassNotFoundException, SQLException {
         return CrudUtil.execute("DELETE FROM doctor WHERE dId=?", id);
     }
-
     // update Doctor
     public boolean updateDoctor(Doctor doc) throws ClassNotFoundException, SQLException {
         return CrudUtil.execute("UPDATE doctor SET name=?, address=?, contact=? WHERE dId=?",
