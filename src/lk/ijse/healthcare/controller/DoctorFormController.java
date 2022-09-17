@@ -27,6 +27,7 @@ public class DoctorFormController {
     public TableColumn colContact;
     public TableColumn colOption;
     public JFXButton btnSaveDoctor;
+    public TextField txtSearch;
 
     public void initialize(){
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -34,7 +35,7 @@ public class DoctorFormController {
         colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
         colContact.setCellValueFactory(new PropertyValueFactory<>("contact"));
         colOption.setCellValueFactory(new PropertyValueFactory<>("btn"));
-        searchData();
+        searchData(sText);
 
 
         tblDoctors.getSelectionModel()
@@ -45,6 +46,11 @@ public class DoctorFormController {
             }
         });
 
+        txtSearch.textProperty().addListener((observable, oldValue, newValue) -> {
+            sText=newValue;
+            searchData(sText);
+        });
+
     }
     private void setData(DoctorTm tm){
         btnSaveDoctor.setText("Update Doctor");
@@ -53,10 +59,11 @@ public class DoctorFormController {
         txtAddress.setText(tm.getAddress());
         txtContact.setText(tm.getContact());
     }
+private String sText="";
+    private void searchData(String text) {
 
-    private void searchData() {
         try{
-            ArrayList<Doctor> lst = new DatabaseAccessCode().searchDoctors("");
+            ArrayList<Doctor> lst = new DatabaseAccessCode().searchDoctors(text);
             ObservableList<DoctorTm> tmList = FXCollections.observableArrayList();
 
             for (Doctor d:lst
@@ -72,7 +79,7 @@ public class DoctorFormController {
                     if (buttonType.get()==ButtonType.YES){
                         try {
                             if (new DatabaseAccessCode().deleteDoctor(d.getDid())){
-                                searchData();
+                                searchData(sText);
                                 new Alert(Alert.AlertType.CONFIRMATION, "Deleted!").show();
                             }else{
                                 new Alert(Alert.AlertType.WARNING, "Try Again!").show();
@@ -103,7 +110,7 @@ public class DoctorFormController {
 
                 boolean isSaved = new DatabaseAccessCode().saveDoctor(d1);
                 if (isSaved){
-                    searchData();
+                    searchData(sText);
                     new Alert(Alert.AlertType.CONFIRMATION, "Saved!").show();
                 }else{
                     new Alert(Alert.AlertType.WARNING, "Try Again!").show();
@@ -118,7 +125,7 @@ public class DoctorFormController {
 
                 boolean isUpdated = new DatabaseAccessCode().updateDoctor(d1);
                 if (isUpdated){
-                    searchData();
+                    searchData(sText);
                     new Alert(Alert.AlertType.CONFIRMATION, "Updated!").show();
                 }else{
                     new Alert(Alert.AlertType.WARNING, "Try Again!").show();

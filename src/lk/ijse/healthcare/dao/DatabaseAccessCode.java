@@ -22,11 +22,16 @@ public class DatabaseAccessCode {
 
     // load doctors
     public ArrayList<Doctor> searchDoctors(String text) throws ClassNotFoundException, SQLException {
+        String searchText="%"+text+"%";
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection connection = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/HealthCare","root","1234");
         PreparedStatement stm =
-                connection.prepareStatement("SELECT * FROM doctor");
+                connection.prepareStatement
+                        ("SELECT * FROM doctor WHERE address LiKE ? || name LIKE ? || contact liKE ?");
+        stm.setString(1,searchText);
+        stm.setString(2,searchText);
+        stm.setString(3,searchText);
        ResultSet set = stm.executeQuery();
        ArrayList<Doctor> lst = new ArrayList<>();
        while (set.next()){
