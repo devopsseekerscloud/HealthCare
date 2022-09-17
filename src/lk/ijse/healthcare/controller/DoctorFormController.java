@@ -10,6 +10,7 @@ import lk.ijse.healthcare.dao.DatabaseAccessCode;
 import lk.ijse.healthcare.entity.Doctor;
 import lk.ijse.healthcare.view.tm.DoctorTm;
 
+import javax.xml.crypto.Data;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -34,6 +35,23 @@ public class DoctorFormController {
         colContact.setCellValueFactory(new PropertyValueFactory<>("contact"));
         colOption.setCellValueFactory(new PropertyValueFactory<>("btn"));
         searchData();
+
+
+        tblDoctors.getSelectionModel()
+                .selectedItemProperty()
+                .addListener((observable, oldValue, newValue) -> {
+            if (newValue!=null){
+                setData(newValue);
+            }
+        });
+
+    }
+    private void setData(DoctorTm tm){
+        btnSaveDoctor.setText("Update Doctor");
+        txtId.setText(tm.getId());
+        txtName.setText(tm.getName());
+        txtAddress.setText(tm.getAddress());
+        txtContact.setText(tm.getContact());
     }
 
     private void searchData() {
@@ -114,5 +132,9 @@ public class DoctorFormController {
 
 
 
+    }
+
+    public void newDoctorOnAction(ActionEvent actionEvent) {
+        btnSaveDoctor.setText("Save Doctor");
     }
 }

@@ -18,7 +18,7 @@
          </font>
       </Label>
       <Separator layoutX="14.0" layoutY="43.0" prefHeight="7.0" prefWidth="753.0" />
-      <JFXButton buttonType="RAISED" layoutX="707.0" layoutY="14.0" style="-fx-background-color: #16a085;" text="+ New Doctor" textFill="WHITE">
+      <JFXButton buttonType="RAISED" layoutX="707.0" layoutY="14.0" onAction="#newDoctorOnAction" style="-fx-background-color: #16a085;" text="+ New Doctor" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
