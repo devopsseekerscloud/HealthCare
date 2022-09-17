@@ -1,5 +1,6 @@
 package lk.ijse.healthcare.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 
@@ -14,11 +15,18 @@ public class DashboardFormController {
     }
 
     private void loadDefaultData() throws IOException {
+       setUi("DefaultForm");
+    }
+
+    public void openDoctorFormOnAction(ActionEvent actionEvent) throws IOException {
+        setUi("DoctorForm");
+    }
+    private void setUi(String value) throws IOException {
         dashboardContext.getChildren().clear();
         dashboardContext.getChildren().add(
                 FXMLLoader.load(
                         getClass().
-                        getResource("../view/DefaultForm.fxml")
+                                getResource("../view/"+value+".fxml")
                 )
         );
     }
