@@ -3,7 +3,7 @@ package lk.ijse.healthcare.view.tm;
 import javafx.scene.control.Button;
 
 public class DoctorTm {
-    private String did;
+    private String id;
     private String name;
     private String address;
     private String contact;
@@ -12,20 +12,20 @@ private Button btn;
     public DoctorTm() {
     }
 
-    public DoctorTm(String did, String name, String address, String contact, Button btn) {
-        this.did = did;
+    public DoctorTm(String id, String name, String address, String contact, Button btn) {
+        this.id = id;
         this.name = name;
         this.address = address;
         this.contact = contact;
         this.btn = btn;
     }
 
-    public String getDid() {
-        return did;
+    public String getId() {
+        return id;
     }
 
-    public void setDid(String did) {
-        this.did = did;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {

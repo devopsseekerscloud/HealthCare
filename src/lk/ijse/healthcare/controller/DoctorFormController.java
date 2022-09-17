@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import lk.ijse.healthcare.dao.DatabaseAccessCode;
 import lk.ijse.healthcare.entity.Doctor;
 import lk.ijse.healthcare.view.tm.DoctorTm;
@@ -24,6 +25,11 @@ public class DoctorFormController {
     public TableColumn colOption;
 
     public void initialize(){
+        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+        colContact.setCellValueFactory(new PropertyValueFactory<>("contact"));
+        colOption.setCellValueFactory(new PropertyValueFactory<>("btn"));
         searchData();
     }
 
