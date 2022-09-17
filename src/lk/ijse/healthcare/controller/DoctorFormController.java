@@ -6,7 +6,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import lk.ijse.healthcare.dao.DatabaseAccessCode;
+
+import lk.ijse.healthcare.dao.custom.impl.DoctorDaoImpl;
 import lk.ijse.healthcare.entity.Doctor;
 import lk.ijse.healthcare.view.tm.DoctorTm;
 
@@ -63,7 +64,7 @@ private String sText="";
     private void searchData(String text) {
 
         try{
-            ArrayList<Doctor> lst = new DatabaseAccessCode().searchDoctors(text);
+            ArrayList<Doctor> lst = new DoctorDaoImpl().searchDoctors(text);
             ObservableList<DoctorTm> tmList = FXCollections.observableArrayList();
 
             for (Doctor d:lst
@@ -78,7 +79,7 @@ private String sText="";
                     Optional<ButtonType> buttonType = alert.showAndWait();
                     if (buttonType.get()==ButtonType.YES){
                         try {
-                            if (new DatabaseAccessCode().deleteDoctor(d.getDid())){
+                            if (new DoctorDaoImpl().delete(d.getDid())){
                                 searchData(sText);
                                 new Alert(Alert.AlertType.CONFIRMATION, "Deleted!").show();
                             }else{
@@ -108,7 +109,7 @@ private String sText="";
         if (btnSaveDoctor.getText().equals("Save Doctor")){
             try{
 
-                boolean isSaved = new DatabaseAccessCode().saveDoctor(d1);
+                boolean isSaved = new DoctorDaoImpl().save(d1);
                 if (isSaved){
                     searchData(sText);
                     new Alert(Alert.AlertType.CONFIRMATION, "Saved!").show();
@@ -123,7 +124,7 @@ private String sText="";
         }else{
             try{
 
-                boolean isUpdated = new DatabaseAccessCode().updateDoctor(d1);
+                boolean isUpdated = new DoctorDaoImpl().update(d1);
                 if (isUpdated){
                     searchData(sText);
                     new Alert(Alert.AlertType.CONFIRMATION, "Updated!").show();
