@@ -9,13 +9,8 @@ import java.util.ArrayList;
 public class DatabaseAccessCode {
     // save Doctor
     public boolean saveDoctor(Doctor doc) throws ClassNotFoundException, SQLException {
-        PreparedStatement stm =
-                DBConnection.getInstance().getConnection().prepareStatement("INSERT INTO Doctor VALUES (?,?,?,?)");
-        stm.setString(1,doc.getDid());
-        stm.setString(2,doc.getName());
-        stm.setString(3,doc.getAddress());
-        stm.setString(4,doc.getContact());
-        return stm.executeUpdate()>0;
+        return CrudUtil.execute("INSERT INTO Doctor VALUES (?,?,?,?)",
+                doc.getDid(),doc.getName(),doc.getAddress(),doc.getContact());
     }
 
     // load doctors
