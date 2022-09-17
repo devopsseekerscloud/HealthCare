@@ -1,5 +1,6 @@
 package lk.ijse.healthcare.controller;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,6 +25,7 @@ public class DoctorFormController {
     public TableColumn colAddress;
     public TableColumn colContact;
     public TableColumn colOption;
+    public JFXButton btnSaveDoctor;
 
     public void initialize(){
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -78,20 +80,39 @@ public class DoctorFormController {
                 txtId.getText(),txtName.getText(),txtAddress.getText(),txtContact.getText()
         );
 
-        try{
+        if (btnSaveDoctor.getText().equals("Save Doctor")){
+            try{
 
-            boolean isSaved = new DatabaseAccessCode().saveDoctor(d1);
-            if (isSaved){
-                searchData();
-                new Alert(Alert.AlertType.CONFIRMATION, "Saved!").show();
-            }else{
-                new Alert(Alert.AlertType.WARNING, "Try Again!").show();
+                boolean isSaved = new DatabaseAccessCode().saveDoctor(d1);
+                if (isSaved){
+                    searchData();
+                    new Alert(Alert.AlertType.CONFIRMATION, "Saved!").show();
+                }else{
+                    new Alert(Alert.AlertType.WARNING, "Try Again!").show();
+                }
+
+            }catch (ClassNotFoundException | SQLException e){
+                new Alert(Alert.AlertType.ERROR, "Try Again!").show();
+                e.printStackTrace();
             }
+        }else{
+            try{
 
-        }catch (ClassNotFoundException | SQLException e){
-            new Alert(Alert.AlertType.ERROR, "Try Again!").show();
-            e.printStackTrace();
+                boolean isUpdated = new DatabaseAccessCode().updateDoctor(d1);
+                if (isUpdated){
+                    searchData();
+                    new Alert(Alert.AlertType.CONFIRMATION, "Updated!").show();
+                }else{
+                    new Alert(Alert.AlertType.WARNING, "Try Again!").show();
+                }
+
+            }catch (ClassNotFoundException | SQLException e){
+                new Alert(Alert.AlertType.ERROR, "Try Again!").show();
+                e.printStackTrace();
+            }
         }
+
+
 
     }
 }
