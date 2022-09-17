@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class DatabaseAccessCode {
     // save Doctor
-    public static boolean saveDoctor(Doctor doc) throws ClassNotFoundException, SQLException {
+    public boolean saveDoctor(Doctor doc) throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection connection = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/HealthCare","root","1234");
